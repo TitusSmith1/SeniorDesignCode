@@ -29,9 +29,9 @@ const int voltage_sense = A0;
 float measured_voltage = 0.0f;
 
 //Current sensor definitions
-const int dump_relay_current_pin = A1;
+const int dump_relay_current_pin = A2;
 float dump_relay_current = 0.0f;
-const int inverter_current_pin = A2;
+const int inverter_current_pin = A3;
 float inverter_current = 0.0f;
 
 const float inverter_current_threashold = 3.5f;//A
