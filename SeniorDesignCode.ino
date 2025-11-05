@@ -92,8 +92,8 @@ void setup() {
   pinMode(cap_relay,OUTPUT);
   Serial.println("Welcome to Gerbil Turbine\nInitializing Turbine...");
   delay(3000);
-  //digitalWrite(dump_relay,HIGH);
-  digitalWrite(dump_relay,LOW);
+  digitalWrite(dump_relay,HIGH);
+  digitalWrite(cap_relay,LOW);
   motor_disengage();
   while(motor_update());
 }
@@ -262,7 +262,6 @@ void motor_engage(){
 }
 
 bool motor_update(){
-  //TODO: check rollover condition
   if(motor_running && (unsigned long) (millis()-setpoint_time) > timeout){
     motor_halt();
   }
