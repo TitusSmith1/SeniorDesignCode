@@ -51,7 +51,7 @@ const float stable_voltage = 340.0f; // voltage of stable running
 bool engaged = false;
 bool motor_running = false;
 
-const bool debug = true;
+const bool debug = false;
 
 //motor movement timer
 unsigned long setpoint_time = 0;
@@ -100,8 +100,8 @@ void setup() {
 
 void loop() {
   measured_voltage = conversion_factor*analogRead(voltage_sense);
-  dump_relay_current = (analogRead(dump_relay_current_pin)*5/1023-2.5)/0.0667;
-  inverter_current = (analogRead(inverter_current_pin)*5/1023-2.5)/0.0667;
+  dump_relay_current = ((analogRead(dump_relay_current_pin)*5.0/1023)-2.5)/0.0667;
+  inverter_current = ((analogRead(inverter_current_pin)*5.0/1023)-2.5)/0.0667;
 
   //Check Estop state
   if(digitalRead(estop)==LOW && engaged==true){
@@ -158,8 +158,8 @@ void loop() {
 
 void try_startup_sequence(){
   measured_voltage = conversion_factor*analogRead(voltage_sense);
-  dump_relay_current = (analogRead(dump_relay_current_pin)*5/1023-2.5)/0.0667;
-  inverter_current = (analogRead(inverter_current_pin)*5/1023-2.5)/0.0667;
+  dump_relay_current = ((analogRead(dump_relay_current_pin)*5.0/1023)-2.5)/0.0667;
+  inverter_current = ((analogRead(inverter_current_pin)*5.0/1023)-2.5)/0.0667;
 
   if(digitalRead(estop)==LOW){
     Serial.println("Estop pressed");
@@ -178,8 +178,8 @@ void try_startup_sequence(){
   //wait till voltages stabilize unless in debug mode
   while(measured_voltage < stable_voltage && debug != true){
     measured_voltage = conversion_factor*analogRead(voltage_sense);
-    dump_relay_current = (analogRead(dump_relay_current_pin)*5/1023-2.5)/0.0667;
-    inverter_current = (analogRead(inverter_current_pin)*5/1023-2.5)/0.0667;
+    dump_relay_current = ((analogRead(dump_relay_current_pin)*5.0/1023)-2.5)/0.0667;
+    inverter_current = ((analogRead(inverter_current_pin)*5.0/1023)-2.5)/0.0667;
 
     //Exit if we have estop engaged
     if(digitalRead(estop)==LOW){
@@ -210,8 +210,8 @@ void try_startup_sequence(){
   //wait for inverter to take current
   while(inverter_current < inverter_current_threashold){
     measured_voltage = conversion_factor*analogRead(voltage_sense);
-    dump_relay_current = (analogRead(dump_relay_current_pin)*5/1023-2.5)/0.0667;
-    inverter_current = (analogRead(inverter_current_pin)*5/1023-2.5)/0.0667;
+    dump_relay_current = ((analogRead(dump_relay_current_pin)*5.0/1023)-2.5)/0.0667;
+    inverter_current = ((analogRead(inverter_current_pin)*5.0/1023)-2.5)/0.0667;
 
     //Exit if we have estop engaged
     if(digitalRead(estop)==LOW){
